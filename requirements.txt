@@ -1,0 +1,14 @@
+pandas
+numpy
+scikit-learn
+tensorflow
+keras
+matplotlib
+seaborn
+streamlit
+mlflow
+jupyter
+tsfresh
+plotly
+ipykernel
+imbalanced-learn
