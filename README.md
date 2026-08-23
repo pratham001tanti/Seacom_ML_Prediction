@@ -35,15 +35,14 @@ The main objective is to identify failing batches reliably, with particular atte
    - use class-weighted baselines (`class_weight='balanced'`)
    - manually lower the decision threshold on predicted probabilities to target better recall, rather than relying on the default 0.5 cutoff
    - compare performance across different PCA thresholds
-   - focus on recall, precision-recall trade-off, and confusion matrices — not accuracy alone, since a trivial "always pass" model already scores ~93% accuracy on this data
-
+   - focus on recall, precision-recall trade-off, and confusion matrices 
 ## Key Ideas
 
 - All preprocessing decisions are made on the training data only to avoid leakage.
 - Correlation-based filtering uses point-biserial correlation against the binary label, computed on the training split only.
 - PCA is used because many SECOM features are correlated and noisy; fewer, more concentrated components (80% variance threshold) outperformed a higher threshold (95%) on defect recall, suggesting the additional components added mostly noise for this task.
 - Class imbalance is primarily handled with `class_weight='balanced'` combined with manual decision-threshold tuning (lowering the cutoff below the default 0.5), since the default cutoff under-detects the minority (defect) class regardless of how the model is trained.
-- **SMOTE was tested and did not improve results** — it performed the same or slightly worse than class-weighting alone. With only ~80 real defect samples, several likely distinct failure modes, and residual high dimensionality even after PCA, SMOTE's interpolated synthetic samples added noise rather than useful signal. This is a known limitation of SMOTE on small, high-dimensional, real-world minority classes, not an implementation issue — see `reports/why_smote_underperformed.md` for the full breakdown.
+- **SMOTE was tested and did not improve results** — it performed the same or slightly worse than class-weighting alone. With only ~80 real defect samples, several likely distinct failure modes, and residual high dimensionality even after PCA, SMOTE's interpolated synthetic samples added noise rather than useful signal. This is a known limitation of SMOTE on small, high-dimensional, real-world minority classes, not an implementation issue
 
 ## Key Results
 
